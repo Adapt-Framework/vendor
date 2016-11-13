@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<adapt_framework>
+    <bundle>
+        <name>vendor</name>
+        <label>Adapt Vendor</label>
+        <description>Provides composer like auto loading</description>
+        <type>auto_loader</type>
+        <version>1.0.0</version>
+        <namespace>/adapt/vendor</namespace>
+        <copyright>2016 Matt Bruton</copyright>
+        <depends_on>
+            <bundle>
+                <name>adapt</name>
+                <version>2</version>
+            </bundle>
+        </depends_on>
+    </bundle>
+</adapt_framework>
