@@ -6,7 +6,7 @@
         <description>Provides composer like auto loading</description>
         <type>auto_loader</type>
         <version>1.0.0</version>
-        <namespace>/adapt/vendor</namespace>
+        <namespace>\adapt\vendor</namespace>
         <copyright>2016 Matt Bruton</copyright>
         <depends_on>
             <bundle>

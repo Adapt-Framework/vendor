@@ -12,22 +12,8 @@ namespace adapt\vendor{
         
         public function boot(){
             if (parent::boot()){
-                
-                spl_autoload_register(
-                    function($class){
-                        /* Get a reference to adapt */
-                        $adapt = $GLOBALS['adapt'];
-                        
-                        /* Get the namespace and class name */
-                        $namespaces = explode("\\", $class);
-                        $class_name = array_pop($namespaces);
-                        
-                        $registered_namespaces = $adapt->store('adapt.namespaces');
-                        
-                        print_r($registered_namespace);
-                    }
-                );
-                
+                require(ADAPT_PATH . "{$this->name}/{$this->name}-{$this->version}/libraries/vendor_autoloader.php");
+                spl_autoload_register('vendor_autoloader');
                 return true;
             }
             
