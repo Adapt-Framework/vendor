@@ -18,7 +18,7 @@ function vendor_autoloader($class){
     foreach($registered_namespaces as $namespace => $bundle){
         if (($namespace == $class_namespace) || (strlen($class_namespace) > strlen($namespace) && substr($class_namespace, 0, strlen($namespace)) == $namespace)){
             $namespaces = array_reverse($namespaces);
-            if (count($namespaces) > 1) array_pop($namespaces);
+            if (count($namespaces) >= 1) array_pop($namespaces);
             $namespaces = array_reverse($namespaces);
             if(is_array($registered_loadpaths) && is_array($registered_loadpaths[$namespace])){
                 foreach($registered_loadpaths[$namespace]['paths'] as $load_path){
@@ -33,7 +33,8 @@ function vendor_autoloader($class){
             }
             else{
                 $class_path = implode("/", $namespaces);
-                $path = ADAPT_PATH . "{$bundle['bundle_name']}/{$bundle['bundle_name']}-{$bundle['bundle_version']}/src/" . $class_path . "/{$class_name}.php";
+                $class_path .= '/';
+                $path = ADAPT_PATH . "{$bundle['bundle_name']}/{$bundle['bundle_name']}-{$bundle['bundle_version']}/src/" . $class_path . "{$class_name}.php";
                 if (file_exists($path)){
                     require_once($path);
                     return true;
