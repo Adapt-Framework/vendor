@@ -10,8 +10,7 @@ function vendor_autoloader($class){
     $namespaces = explode("\\", $class);
     $class_name = array_pop($namespaces);
     $class_namespace = "\\" . implode("\\", $namespaces);
-    
-    
+    $path_class_namespace = str_replace("\\", "/", $class_namespace);
     
     $registered_namespaces = $adapt->store('adapt.namespaces');
     $registered_loadpaths = json_decode($adapt->cache->get('vendor/bundle_load_path'),true);
@@ -20,7 +19,7 @@ function vendor_autoloader($class){
             $namespaces = array_reverse($namespaces);
             if (count($namespaces) >= 1) array_pop($namespaces);
             $namespaces = array_reverse($namespaces);
-            if(is_array($registered_loadpaths) && is_array($registered_loadpaths[$namespace])){
+            if(is_array($registered_loadpaths) && isset($registered_loadpaths[$namespace]) && is_array($registered_loadpaths[$namespace]) && isset($registered_loadpaths[$namespace]['paths'])){
                 foreach($registered_loadpaths[$namespace]['paths'] as $load_path){
                     $path = ADAPT_PATH . "{$bundle['bundle_name']}/{$bundle['bundle_name']}-{$bundle['bundle_version']}/" . $load_path . "{$class_name}.php";
 //                    print "does file exists path: {$path} \n";
@@ -30,11 +29,11 @@ function vendor_autoloader($class){
                         return true;
                     }
                 }
-            }
-            else{
-                $class_path = implode("/", $namespaces);
+            }else{
+                $class_path = $path_class_namespace;
                 $class_path .= '/';
                 $path = ADAPT_PATH . "{$bundle['bundle_name']}/{$bundle['bundle_name']}-{$bundle['bundle_version']}/src/" . $class_path . "{$class_name}.php";
+                
                 if (file_exists($path)){
                     require_once($path);
                     return true;

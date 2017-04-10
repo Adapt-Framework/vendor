@@ -31,7 +31,7 @@ namespace adapt\vendor{
                         $paths[$namespace]['paths'][] = $load_path->get(0);
                     }
                 }
-                $this->cache->set('vendor/bundle_load_path',json_encode($paths),(60 * 60 * 24 * 365));
+                $this->cache->set('vendor/bundle_load_path',json_encode($paths),(60 * 60 * 24 * 365 * 10));
             }
         }
     }
